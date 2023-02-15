@@ -24,7 +24,7 @@ func (h *Handler) createUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	resp, err := http.Post("http://localhost:8887/generate-salt", "application/json", nil)
+	resp, err := http.Post("http://app1:8887/generate-salt", "application/json", nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
