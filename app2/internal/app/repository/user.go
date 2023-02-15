@@ -3,6 +3,7 @@ package repository
 import (
 	"app2/internal/app/models"
 	"context"
+	"fmt"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -49,7 +50,7 @@ func (r *UserRepo) GetUser(email string) (models.User, error) {
 	var user models.User
 	err := r.collection.FindOne(context.Background(), filter).Decode(&user)
 	if err != nil {
-		return models.User{}, err
+		return models.User{}, fmt.Errorf("repository: %w", err)
 	}
 	return user, nil
 }

@@ -1,16 +1,23 @@
 package handler
 
 import (
+	"app1/internal/service"
 	"encoding/json"
 	"net/http"
 )
 
-func (h *Handler) generateSalt(w http.ResponseWriter, r *http.Request) {
+func InitRoutes() *http.ServeMux {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/generate-salt", generateSalt)
+	return mux
+}
+
+func generateSalt(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
 	}
-	salt := h.service.Salt.GetSalt()
+	salt := service.GetSalt()
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	response := map[string]string{"salt": string(salt)}

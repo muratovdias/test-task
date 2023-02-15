@@ -5,14 +5,7 @@ import (
 	"time"
 )
 
-type SaltService struct {
-}
-
-func NewSaltService() *SaltService {
-	return &SaltService{}
-}
-
-func (s *SaltService) GetSalt() string {
+func GetSalt() string {
 	str := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	salt := make([]byte, 12)
 	rand.Seed(time.Now().Unix())

@@ -4,6 +4,7 @@ import (
 	"app2/internal/app/config"
 	"context"
 	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -31,8 +32,11 @@ func (mongo *MongoDB) userCollection(dbName, collection string) {
 }
 
 func createClient(uri string) (*mongo.Client, error) {
-	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
+	ctx := context.Background()
+	// time.Sleep(time.Second * 3)
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
 	if err != nil {
+		log.Println(err.Error() + " create Client")
 		return nil, err
 	}
 	// ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -41,8 +45,10 @@ func createClient(uri string) (*mongo.Client, error) {
 	// if err != nil {
 	// 	return nil, err
 	// }
-	err = client.Ping(context.Background(), nil)
+	time.Sleep(time.Second * 3)
+	err = client.Ping(ctx, nil)
 	if err != nil {
+		log.Println(err.Error() + " ping DB")
 		return nil, err
 	}
 	return client, nil

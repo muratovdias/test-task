@@ -18,7 +18,8 @@ func LoadMongoConfig() MongoConfig {
 		log.Fatal("Error loading .env file")
 	}
 	var config MongoConfig
-	config.URI = os.Getenv("MONGO_URI")
-	config.DbName = os.Getenv("MONGO_DB_NAME")
+	config.URI = os.Getenv("MONGODB_URI")
+	config.DbName = os.Getenv("MONGODB_NAME")
+	log.Println("confid loaded", config)
 	return config
 }

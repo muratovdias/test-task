@@ -6,6 +6,7 @@ import (
 	"app2/internal/app/repository"
 	"app2/internal/app/server"
 	"app2/internal/app/service"
+	"log"
 )
 
 type App struct {
@@ -28,6 +29,7 @@ func NewApp() *App {
 func (app *App) Run() error {
 	s := server.ServerUp(app.handler.InitRoutes())
 	if err := server.Start(s); err != nil {
+		log.Println(err.Error() + " server: Start")
 		return err
 	}
 	return nil

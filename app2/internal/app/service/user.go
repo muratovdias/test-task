@@ -6,6 +6,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
+	"log"
 	"strings"
 )
 
@@ -56,6 +57,7 @@ func (s *UserService) CreateUser(user models.User) (models.User, error) {
 func (s *UserService) GetUser(email string) (models.User, error) {
 	user, err := s.repo.GetUser(email)
 	if err != nil {
+		log.Println(err.Error())
 		return models.User{}, err
 	}
 	return user, nil

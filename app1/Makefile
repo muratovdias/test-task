@@ -8,5 +8,5 @@ build:
 	sudo docker build -t $(IMAGE_NAME) .
 
 run-container:
-	sudo docker run --rm -it --name $(CONTAINER_NAME) --network my-network $(IMAGE_NAME)
+	sudo docker run --rm -it --name $(CONTAINER_NAME) --network my-network -p 8887:8887 $(IMAGE_NAME)
 

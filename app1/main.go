@@ -1,14 +1,14 @@
 package main
 
 import (
-	"app1/internal/pkg/app"
+	"app1/internal/handler"
 	"log"
+	"net/http"
 )
 
 func main() {
-	app := app.NewApp()
 	log.Println("App1 started at port 8887")
-	if err := app.Run(); err != nil {
+	if err := http.ListenAndServe(":8887", handler.InitRoutes()); err != nil {
 		log.Fatal(err.Error())
 	}
 }
