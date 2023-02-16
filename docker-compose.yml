@@ -1,23 +1,23 @@
-  version: '1.29'
+  version: '3.9'
 
   services:
+
     mongo_db:
       image: mongo:latest
       restart: always
       volumes:
         - mongo_db:/data/db
-    app1:
-      build: ./app1
+    salt_service:
+      build: ./salt
       ports:
         - 8887:8887
-
-    app2:
-      build: ./app2
+    user_service:
+      build: ./user
       ports:
         - 8888:8888
       environment:
         MONGODB_URI: mongodb://mongo_db:27017
         MONGODB_NAME: mydatabase
-        
+        SALT_SERVICE_URL: http://salt_service:8887/generate-salt
   volumes:
     mongo_db: {}
